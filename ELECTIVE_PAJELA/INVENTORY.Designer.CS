@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button8 = new System.Windows.Forms.Button();
+            this.categoryNameTxtbox = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -67,6 +70,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button8);
+            this.groupBox1.Controls.Add(this.categoryNameTxtbox);
+            this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.button5);
             this.groupBox1.Controls.Add(this.button4);
             this.groupBox1.Controls.Add(this.button3);
@@ -91,6 +97,36 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "INVENTORY";
+            // 
+            // button8
+            // 
+            this.button8.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button8.Location = new System.Drawing.Point(613, 426);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(213, 53);
+            this.button8.TabIndex = 28;
+            this.button8.Text = "CLEAR";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
+            // categoryNameTxtbox
+            // 
+            this.categoryNameTxtbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.categoryNameTxtbox.Location = new System.Drawing.Point(140, 426);
+            this.categoryNameTxtbox.Multiline = true;
+            this.categoryNameTxtbox.Name = "categoryNameTxtbox";
+            this.categoryNameTxtbox.Size = new System.Drawing.Size(379, 37);
+            this.categoryNameTxtbox.TabIndex = 27;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(9, 439);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(129, 24);
+            this.label2.TabIndex = 26;
+            this.label2.Text = "CATEGORY:";
             // 
             // button5
             // 
@@ -128,12 +164,13 @@
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(613, 194);
+            this.button2.Location = new System.Drawing.Point(613, 200);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(213, 53);
             this.button2.TabIndex = 22;
             this.button2.Text = "SAVE";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // label8
             // 
@@ -199,13 +236,15 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(9, 427);
+            this.dataGridView1.Location = new System.Drawing.Point(9, 495);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(869, 332);
+            this.dataGridView1.Size = new System.Drawing.Size(869, 264);
             this.dataGridView1.TabIndex = 13;
+            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
             // txtNameTxtbox
             // 
+            this.txtNameTxtbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNameTxtbox.Location = new System.Drawing.Point(195, 163);
             this.txtNameTxtbox.Multiline = true;
             this.txtNameTxtbox.Name = "txtNameTxtbox";
@@ -214,6 +253,7 @@
             // 
             // productid_txtbox
             // 
+            this.productid_txtbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.productid_txtbox.Location = new System.Drawing.Point(154, 87);
             this.productid_txtbox.Multiline = true;
             this.productid_txtbox.Name = "productid_txtbox";
@@ -222,6 +262,7 @@
             // 
             // txtPriceTxtbox
             // 
+            this.txtPriceTxtbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPriceTxtbox.Location = new System.Drawing.Point(140, 225);
             this.txtPriceTxtbox.Multiline = true;
             this.txtPriceTxtbox.Name = "txtPriceTxtbox";
@@ -230,6 +271,7 @@
             // 
             // txtStocksTxtbox
             // 
+            this.txtStocksTxtbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtStocksTxtbox.Location = new System.Drawing.Point(140, 293);
             this.txtStocksTxtbox.Multiline = true;
             this.txtStocksTxtbox.Name = "txtStocksTxtbox";
@@ -238,6 +280,7 @@
             // 
             // barcodeTxt
             // 
+            this.barcodeTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.barcodeTxt.Location = new System.Drawing.Point(140, 360);
             this.barcodeTxt.Multiline = true;
             this.barcodeTxt.Name = "barcodeTxt";
@@ -246,6 +289,7 @@
             // 
             // txtSearchID
             // 
+            this.txtSearchID.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSearchID.Location = new System.Drawing.Point(140, 32);
             this.txtSearchID.Multiline = true;
             this.txtSearchID.Name = "txtSearchID";
@@ -286,9 +330,11 @@
             // pictureBox1
             // 
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pictureBox1.Image = global::ELECTIVE_PAJELA.Properties.Resources._78260956_5fb2_45b5_b857_2d098288fe3c;
             this.pictureBox1.Location = new System.Drawing.Point(397, 19);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(157, 122);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
@@ -416,5 +462,8 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.TextBox categoryNameTxtbox;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button button8;
     }
 }
