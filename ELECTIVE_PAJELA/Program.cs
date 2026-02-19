@@ -16,7 +16,7 @@ namespace ELECTIVE_PAJELA
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new INVENTORY());
+            Application.Run(new SALESREPORTcs ());
         }
     }
 }
