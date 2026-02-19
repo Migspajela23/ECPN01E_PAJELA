@@ -425,7 +425,7 @@ namespace ELECTIVE_PAJELA
                         }
 
                         tx.Commit();
-                        MessageBox.Show("Product and category saved successfully!", "Success");
+                        MessageBox.Show("Product and barcode saved successfully!", "Success");
                         LoadRecords();
                     }
                     catch (Exception ex)

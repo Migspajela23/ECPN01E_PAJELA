@@ -112,7 +112,7 @@
             // categoryNameTxtbox
             // 
             this.categoryNameTxtbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.categoryNameTxtbox.Location = new System.Drawing.Point(140, 426);
+            this.categoryNameTxtbox.Location = new System.Drawing.Point(195, 426);
             this.categoryNameTxtbox.Multiline = true;
             this.categoryNameTxtbox.Name = "categoryNameTxtbox";
             this.categoryNameTxtbox.Size = new System.Drawing.Size(379, 37);
@@ -254,7 +254,7 @@
             // productid_txtbox
             // 
             this.productid_txtbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.productid_txtbox.Location = new System.Drawing.Point(154, 87);
+            this.productid_txtbox.Location = new System.Drawing.Point(195, 87);
             this.productid_txtbox.Multiline = true;
             this.productid_txtbox.Name = "productid_txtbox";
             this.productid_txtbox.Size = new System.Drawing.Size(379, 37);
@@ -263,7 +263,7 @@
             // txtPriceTxtbox
             // 
             this.txtPriceTxtbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPriceTxtbox.Location = new System.Drawing.Point(140, 225);
+            this.txtPriceTxtbox.Location = new System.Drawing.Point(195, 225);
             this.txtPriceTxtbox.Multiline = true;
             this.txtPriceTxtbox.Name = "txtPriceTxtbox";
             this.txtPriceTxtbox.Size = new System.Drawing.Size(379, 37);
@@ -272,7 +272,7 @@
             // txtStocksTxtbox
             // 
             this.txtStocksTxtbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtStocksTxtbox.Location = new System.Drawing.Point(140, 293);
+            this.txtStocksTxtbox.Location = new System.Drawing.Point(195, 292);
             this.txtStocksTxtbox.Multiline = true;
             this.txtStocksTxtbox.Name = "txtStocksTxtbox";
             this.txtStocksTxtbox.Size = new System.Drawing.Size(379, 37);
@@ -281,7 +281,7 @@
             // barcodeTxt
             // 
             this.barcodeTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.barcodeTxt.Location = new System.Drawing.Point(140, 360);
+            this.barcodeTxt.Location = new System.Drawing.Point(195, 360);
             this.barcodeTxt.Multiline = true;
             this.barcodeTxt.Name = "barcodeTxt";
             this.barcodeTxt.Size = new System.Drawing.Size(379, 37);
@@ -290,7 +290,7 @@
             // txtSearchID
             // 
             this.txtSearchID.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSearchID.Location = new System.Drawing.Point(140, 32);
+            this.txtSearchID.Location = new System.Drawing.Point(195, 29);
             this.txtSearchID.Multiline = true;
             this.txtSearchID.Name = "txtSearchID";
             this.txtSearchID.Size = new System.Drawing.Size(379, 37);
