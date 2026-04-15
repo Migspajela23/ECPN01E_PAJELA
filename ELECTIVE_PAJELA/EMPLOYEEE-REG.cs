@@ -15,6 +15,7 @@ namespace ELECTIVE_PAJELA
         // Instantiate your class to get access to the Connection String and Search Method
         EMPLOYEEE_REGDB empDB = new EMPLOYEEE_REGDB();
         string picPath = "";
+        private string connectionString;
 
         public EMPLOYEEE_REG()
         {
@@ -54,7 +55,7 @@ namespace ELECTIVE_PAJELA
                 cmbNationality.Items.AddRange(new string[] { "Filipino", "Others" });
 
                 // This ensures the first item isn't blank
-                cmbGender.SelectedIndex = 0;
+                cmbGender.SelectedIndex = -1;
             }
             catch (Exception ex)
             {
@@ -87,7 +88,6 @@ namespace ELECTIVE_PAJELA
             }
         }
 
-        // SAVE BUTTON
         private void button1_Click(object sender, EventArgs e)
         {
             using (SqlConnection conn = new SqlConnection(empDB.MyConnection()))
@@ -157,7 +157,7 @@ namespace ELECTIVE_PAJELA
                     {
                         string query = "DELETE FROM Employees WHERE EmployeeID=@id";
                         SqlCommand cmd = new SqlCommand(query, conn);
-                        cmd.Parameters.AddWithValue("@id", txtEmployeeIDs.Text);
+                        cmd.Parameters.AddWithValue("@id", txtEmployeeID.Text);
 
                         conn.Open();
                         cmd.ExecuteNonQuery();
@@ -176,12 +176,24 @@ namespace ELECTIVE_PAJELA
         // SEARCH BUTTON
         private void button5_Click(object sender, EventArgs e)
         {
+        
             try
             {
-                EMPLOYEEE_REGDB foundEmployee = empDB.GetEmployeeByID(txtEmployeeIDs.Text);
+                // Use the text from the dedicated Search Employee box
+                string searchID = searchtxtbox.Text.Trim();
+
+                if (string.IsNullOrEmpty(searchID))
+                {
+                    MessageBox.Show("Please enter an Employee ID to search.");
+                    return;
+                }
+
+                EMPLOYEEE_REGDB foundEmployee = empDB.GetEmployeeByID(searchID);
 
                 if (foundEmployee != null)
                 {
+                    // Map the database fields to your UI controls
+                    txtEmployeeID.Text = foundEmployee.EmployeeID; // Fill the ID field too
                     txtSurname.Text = foundEmployee.Surname;
                     txtFirstName.Text = foundEmployee.FirstName;
                     txtMiddleName.Text = foundEmployee.MiddleName;
@@ -206,10 +218,17 @@ namespace ELECTIVE_PAJELA
                     }
                     else { pictureBox1.Image = null; }
                 }
-                else { MessageBox.Show("Employee not found."); }
+                else
+                {
+                    MessageBox.Show("Employee ID " + searchID + " not found.");
+                }
             }
-            catch (Exception ex) { MessageBox.Show("Search Error: " + ex.Message); }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Search Error: " + ex.Message);
+            }
         }
+        
 
         // BROWSE BUTTON
         private void button7_Click(object sender, EventArgs e)
@@ -226,7 +245,7 @@ namespace ELECTIVE_PAJELA
 
         private void SetParameters(SqlCommand cmd)
         {
-            cmd.Parameters.AddWithValue("@id", txtEmployeeIDs.Text);
+            cmd.Parameters.AddWithValue("@id", txtEmployeeID.Text);
             cmd.Parameters.AddWithValue("@surname", txtSurname.Text);
             cmd.Parameters.AddWithValue("@firstname", txtFirstName.Text);
             cmd.Parameters.AddWithValue("@middlename", txtMiddleName.Text);
@@ -251,7 +270,7 @@ namespace ELECTIVE_PAJELA
 
         private void ClearFields()
         {
-            txtEmployeeIDs.Text = string.Empty;
+            txtEmployeeID.Text = string.Empty;
             txtSurname.Clear();
             txtFirstName.Clear();
             txtMiddleName.Clear();
@@ -269,7 +288,7 @@ namespace ELECTIVE_PAJELA
             dtpDateOfHired.Value = DateTime.Now;
             pictureBox1.Image = null;
             picPath = "";
-            txtEmployeeIDs.Focus();
+            txtEmployeeID.Focus();
         }
 
         // EXIT BUTTON
@@ -282,8 +301,42 @@ namespace ELECTIVE_PAJELA
         {
             if (e.RowIndex >= 0)
             {
-                txtEmployeeIDs.Text = dgvEmployees.Rows[e.RowIndex].Cells["EmployeeID"].Value.ToString();
+                txtEmployeeID.Text = dgvEmployees.Rows[e.RowIndex].Cells["EmployeeID"].Value.ToString();
                 button5_Click(sender, e);
+            }
+        }
+
+        private void GENERATEIDBTN_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(empDB.MyConnection()))
+                {
+                    conn.Open();
+
+                    string query = @"SELECT MAX(CAST(EmployeeID AS BIGINT)) 
+                             FROM Employees 
+                             WHERE EmployeeID NOT LIKE '%[^0-9]%'"; 
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        object result = cmd.ExecuteScalar();
+
+                        if (result != DBNull.Value && result != null)
+                        {
+                            long maxId = Convert.ToInt64(result);
+                            txtEmployeeID.Text = (maxId + 1).ToString();
+                        }
+                        else
+                        {
+                            txtEmployeeID.Text = "10001";
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                txtEmployeeID.Text = "10001";
             }
         }
     }

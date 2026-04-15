@@ -61,7 +61,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.txtEmployeeIDs = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.dgvEmployees = new System.Windows.Forms.DataGridView();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -74,10 +74,20 @@
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.picpath = new System.Windows.Forms.TextBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button8 = new System.Windows.Forms.Button();
+            this.button10 = new System.Windows.Forms.Button();
+            this.button9 = new System.Windows.Forms.Button();
+            this.GENERATEIDBTN = new System.Windows.Forms.Button();
+            this.searchtxtbox = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployees)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -113,13 +123,13 @@
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.txtEmployeeIDs);
+            this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(12, 140);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(503, 620);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "groupBox1";
+            this.groupBox1.Text = "INFO";
             // 
             // txtReligion
             // 
@@ -397,15 +407,15 @@
             this.label2.TabIndex = 9;
             this.label2.Text = "SURNAME:";
             // 
-            // txtEmployeeIDs
+            // label1
             // 
-            this.txtEmployeeIDs.AutoSize = true;
-            this.txtEmployeeIDs.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmployeeIDs.Location = new System.Drawing.Point(6, 16);
-            this.txtEmployeeIDs.Name = "txtEmployeeIDs";
-            this.txtEmployeeIDs.Size = new System.Drawing.Size(134, 20);
-            this.txtEmployeeIDs.TabIndex = 8;
-            this.txtEmployeeIDs.Text = "EMPLOYEE ID:";
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(6, 16);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(134, 20);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "EMPLOYEE ID:";
             // 
             // dgvEmployees
             // 
@@ -417,17 +427,17 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(547, 247);
+            this.button1.Location = new System.Drawing.Point(547, 291);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(121, 49);
             this.button1.TabIndex = 11;
             this.button1.Text = "SAVE";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.EMPLOYEEE_REG_Load);
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(547, 323);
+            this.button2.Location = new System.Drawing.Point(547, 346);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(121, 49);
             this.button2.TabIndex = 12;
@@ -437,7 +447,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(688, 321);
+            this.button3.Location = new System.Drawing.Point(688, 347);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(121, 49);
             this.button3.TabIndex = 13;
@@ -447,7 +457,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(688, 247);
+            this.button4.Location = new System.Drawing.Point(688, 291);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(121, 49);
             this.button4.TabIndex = 14;
@@ -457,7 +467,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(826, 247);
+            this.button5.Location = new System.Drawing.Point(815, 291);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(121, 49);
             this.button5.TabIndex = 15;
@@ -467,7 +477,7 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(826, 321);
+            this.button6.Location = new System.Drawing.Point(815, 346);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(121, 49);
             this.button6.TabIndex = 16;
@@ -487,7 +497,7 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(1012, 223);
+            this.button7.Location = new System.Drawing.Point(491, 234);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(119, 33);
             this.button7.TabIndex = 19;
@@ -509,7 +519,7 @@
             // pictureBox1
             // 
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox1.Location = new System.Drawing.Point(960, 12);
+            this.pictureBox1.Location = new System.Drawing.Point(430, 19);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(231, 200);
             this.pictureBox1.TabIndex = 0;
@@ -517,23 +527,105 @@
             // 
             // picpath
             // 
-            this.picpath.Location = new System.Drawing.Point(974, 156);
+            this.picpath.Location = new System.Drawing.Point(448, 179);
             this.picpath.Multiline = true;
             this.picpath.Name = "picpath";
             this.picpath.Size = new System.Drawing.Size(196, 20);
             this.picpath.TabIndex = 42;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pictureBox2.Location = new System.Drawing.Point(241, 19);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(159, 200);
+            this.pictureBox2.TabIndex = 43;
+            this.pictureBox2.TabStop = false;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.button8);
+            this.groupBox2.Controls.Add(this.button10);
+            this.groupBox2.Controls.Add(this.button9);
+            this.groupBox2.Controls.Add(this.GENERATEIDBTN);
+            this.groupBox2.Controls.Add(this.picpath);
+            this.groupBox2.Controls.Add(this.pictureBox2);
+            this.groupBox2.Controls.Add(this.pictureBox1);
+            this.groupBox2.Controls.Add(this.button7);
+            this.groupBox2.Location = new System.Drawing.Point(547, 12);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(673, 273);
+            this.groupBox2.TabIndex = 44;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "bio";
+            // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(6, 198);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(169, 49);
+            this.button8.TabIndex = 48;
+            this.button8.Text = "ACCEPT";
+            this.button8.UseVisualStyleBackColor = true;
+            // 
+            // button10
+            // 
+            this.button10.Location = new System.Drawing.Point(6, 128);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(169, 49);
+            this.button10.TabIndex = 47;
+            this.button10.Text = "RETRY";
+            this.button10.UseVisualStyleBackColor = true;
+            // 
+            // button9
+            // 
+            this.button9.Location = new System.Drawing.Point(6, 74);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(169, 49);
+            this.button9.TabIndex = 46;
+            this.button9.Text = "SCAN";
+            this.button9.UseVisualStyleBackColor = true;
+            // 
+            // GENERATEIDBTN
+            // 
+            this.GENERATEIDBTN.Location = new System.Drawing.Point(6, 19);
+            this.GENERATEIDBTN.Name = "GENERATEIDBTN";
+            this.GENERATEIDBTN.Size = new System.Drawing.Size(202, 49);
+            this.GENERATEIDBTN.TabIndex = 45;
+            this.GENERATEIDBTN.Text = "GENERATE ID";
+            this.GENERATEIDBTN.UseVisualStyleBackColor = true;
+            this.GENERATEIDBTN.Click += new System.EventHandler(this.GENERATEIDBTN_Click);
+            // 
+            // searchtxtbox
+            // 
+            this.searchtxtbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.searchtxtbox.Location = new System.Drawing.Point(994, 328);
+            this.searchtxtbox.Multiline = true;
+            this.searchtxtbox.Name = "searchtxtbox";
+            this.searchtxtbox.Size = new System.Drawing.Size(214, 28);
+            this.searchtxtbox.TabIndex = 42;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(1002, 299);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(189, 20);
+            this.label18.TabIndex = 42;
+            this.label18.Text = "SEARCH EMPLOYEE:";
             // 
             // EMPLOYEEE_REG
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1220, 765);
-            this.Controls.Add(this.picpath);
-            this.Controls.Add(this.button7);
+            this.Controls.Add(this.label18);
+            this.Controls.Add(this.searchtxtbox);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.button6);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
@@ -549,6 +641,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployees)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -566,7 +661,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label txtEmployeeIDs;
+        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox txtEmailAddress;
@@ -602,5 +697,13 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.TextBox currentPhotoPath;
         private System.Windows.Forms.TextBox picpath;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button GENERATEIDBTN;
+        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.TextBox searchtxtbox;
+        private System.Windows.Forms.Label label18;
     }
 }

@@ -36,6 +36,8 @@ namespace ELECTIVE_PAJELA
         public DateTime DateOfHired { get; set; }
         public string PhotoPath { get; set; }
 
+        public string SEARCH_EMPLOYEE { get; set; }
+
         public EMPLOYEEE_REGDB GetEmployeeByID(string id)
         {
             EMPLOYEEE_REGDB employee = null;
@@ -72,7 +74,8 @@ namespace ELECTIVE_PAJELA
                                 Department = dr["Department"].ToString(),
                                 Position = dr["Position"].ToString(),
                                 DateOfHired = Convert.ToDateTime(dr["DateOfHired"]),
-                                PhotoPath = dr["PhotoPath"].ToString()
+                                PhotoPath = dr["PhotoPath"].ToString(),
+                                SEARCH_EMPLOYEE = dr["EmployeeID"].ToString()
                             };
                         }
                     }
