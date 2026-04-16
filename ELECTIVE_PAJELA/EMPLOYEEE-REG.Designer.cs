@@ -74,11 +74,13 @@
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.picpath = new System.Windows.Forms.TextBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pbFingerprint = new System.Windows.Forms.PictureBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.button8 = new System.Windows.Forms.Button();
-            this.button10 = new System.Windows.Forms.Button();
-            this.button9 = new System.Windows.Forms.Button();
+            this.txtFingerprintData = new System.Windows.Forms.TextBox();
+            this.lblStatus = new System.Windows.Forms.Label();
+            this.btnAccept = new System.Windows.Forms.Button();
+            this.retrybtn = new System.Windows.Forms.Button();
+            this.scanbtn = new System.Windows.Forms.Button();
             this.GENERATEIDBTN = new System.Windows.Forms.Button();
             this.searchtxtbox = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
@@ -86,7 +88,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployees)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbFingerprint)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -527,29 +529,31 @@
             // 
             // picpath
             // 
-            this.picpath.Location = new System.Drawing.Point(448, 179);
+            this.picpath.Location = new System.Drawing.Point(448, 177);
             this.picpath.Multiline = true;
             this.picpath.Name = "picpath";
             this.picpath.Size = new System.Drawing.Size(196, 20);
             this.picpath.TabIndex = 42;
             // 
-            // pictureBox2
+            // pbFingerprint
             // 
-            this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox2.Location = new System.Drawing.Point(241, 19);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(159, 200);
-            this.pictureBox2.TabIndex = 43;
-            this.pictureBox2.TabStop = false;
+            this.pbFingerprint.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pbFingerprint.Location = new System.Drawing.Point(241, 19);
+            this.pbFingerprint.Name = "pbFingerprint";
+            this.pbFingerprint.Size = new System.Drawing.Size(159, 200);
+            this.pbFingerprint.TabIndex = 43;
+            this.pbFingerprint.TabStop = false;
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.button8);
-            this.groupBox2.Controls.Add(this.button10);
-            this.groupBox2.Controls.Add(this.button9);
+            this.groupBox2.Controls.Add(this.txtFingerprintData);
+            this.groupBox2.Controls.Add(this.lblStatus);
+            this.groupBox2.Controls.Add(this.btnAccept);
+            this.groupBox2.Controls.Add(this.retrybtn);
+            this.groupBox2.Controls.Add(this.scanbtn);
             this.groupBox2.Controls.Add(this.GENERATEIDBTN);
             this.groupBox2.Controls.Add(this.picpath);
-            this.groupBox2.Controls.Add(this.pictureBox2);
+            this.groupBox2.Controls.Add(this.pbFingerprint);
             this.groupBox2.Controls.Add(this.pictureBox1);
             this.groupBox2.Controls.Add(this.button7);
             this.groupBox2.Location = new System.Drawing.Point(547, 12);
@@ -559,32 +563,53 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "bio";
             // 
-            // button8
+            // txtFingerprintData
             // 
-            this.button8.Location = new System.Drawing.Point(6, 198);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(169, 49);
-            this.button8.TabIndex = 48;
-            this.button8.Text = "ACCEPT";
-            this.button8.UseVisualStyleBackColor = true;
+            this.txtFingerprintData.Location = new System.Drawing.Point(257, 224);
+            this.txtFingerprintData.Multiline = true;
+            this.txtFingerprintData.Name = "txtFingerprintData";
+            this.txtFingerprintData.Size = new System.Drawing.Size(121, 20);
+            this.txtFingerprintData.TabIndex = 42;
             // 
-            // button10
+            // lblStatus
             // 
-            this.button10.Location = new System.Drawing.Point(6, 128);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(169, 49);
-            this.button10.TabIndex = 47;
-            this.button10.Text = "RETRY";
-            this.button10.UseVisualStyleBackColor = true;
+            this.lblStatus.AutoSize = true;
+            this.lblStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStatus.Location = new System.Drawing.Point(181, 247);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(61, 18);
+            this.lblStatus.TabIndex = 49;
+            this.lblStatus.Text = "label19";
             // 
-            // button9
+            // btnAccept
             // 
-            this.button9.Location = new System.Drawing.Point(6, 74);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(169, 49);
-            this.button9.TabIndex = 46;
-            this.button9.Text = "SCAN";
-            this.button9.UseVisualStyleBackColor = true;
+            this.btnAccept.Location = new System.Drawing.Point(6, 198);
+            this.btnAccept.Name = "btnAccept";
+            this.btnAccept.Size = new System.Drawing.Size(169, 49);
+            this.btnAccept.TabIndex = 48;
+            this.btnAccept.Text = "ACCEPT";
+            this.btnAccept.UseVisualStyleBackColor = true;
+            this.btnAccept.Click += new System.EventHandler(this.btnAccept_Click);
+            // 
+            // retrybtn
+            // 
+            this.retrybtn.Location = new System.Drawing.Point(6, 131);
+            this.retrybtn.Name = "retrybtn";
+            this.retrybtn.Size = new System.Drawing.Size(169, 49);
+            this.retrybtn.TabIndex = 47;
+            this.retrybtn.Text = "RETRY";
+            this.retrybtn.UseVisualStyleBackColor = true;
+            this.retrybtn.Click += new System.EventHandler(this.retrybtn_Click);
+            // 
+            // scanbtn
+            // 
+            this.scanbtn.Location = new System.Drawing.Point(6, 74);
+            this.scanbtn.Name = "scanbtn";
+            this.scanbtn.Size = new System.Drawing.Size(169, 49);
+            this.scanbtn.TabIndex = 46;
+            this.scanbtn.Text = "SCAN";
+            this.scanbtn.UseVisualStyleBackColor = true;
+            this.scanbtn.Click += new System.EventHandler(this.scanbtn_Click);
             // 
             // GENERATEIDBTN
             // 
@@ -595,6 +620,8 @@
             this.GENERATEIDBTN.Text = "GENERATE ID";
             this.GENERATEIDBTN.UseVisualStyleBackColor = true;
             this.GENERATEIDBTN.Click += new System.EventHandler(this.GENERATEIDBTN_Click);
+            this.GENERATEIDBTN.Click += GENERATEIDBTN_Click;
+
             // 
             // searchtxtbox
             // 
@@ -641,7 +668,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployees)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbFingerprint)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
@@ -697,13 +724,15 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.TextBox currentPhotoPath;
         private System.Windows.Forms.TextBox picpath;
-        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox pbFingerprint;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button button10;
-        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button retrybtn;
+        private System.Windows.Forms.Button scanbtn;
         private System.Windows.Forms.Button GENERATEIDBTN;
-        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button btnAccept;
         private System.Windows.Forms.TextBox searchtxtbox;
         private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label lblStatus;
+        private System.Windows.Forms.TextBox txtFingerprintData;
     }
 }
