@@ -15,8 +15,6 @@ namespace ELECTIVE_PAJELA
 {
     public partial class EMPLOYEE_BIO : Form
     {
-
-
         // ── Fingerprint SDK State ──
         private IntPtr mDevHandle = IntPtr.Zero;
         private IntPtr mDBHandle = IntPtr.Zero;
@@ -33,7 +31,6 @@ namespace ELECTIVE_PAJELA
         // Timer for clearing the UI after 5 seconds
         private System.Windows.Forms.Timer _uiClearTimer;
         private string connectionString = @"Data Source=LAPTOP-RF7MTOVT\SQLEXPRESS;Initial Catalog=EMPLOYEEE_REGDB;Integrated Security=True;TrustServerCertificate=True";
-        private bool isDeviceReady = false;
 
         public EMPLOYEE_BIO()
         {
@@ -54,8 +51,8 @@ namespace ELECTIVE_PAJELA
             // Wire up form load and close to manage sensor lifecycle
             this.Load += Attendance_Load;
             this.FormClosing += Attendance_FormClosing;
-            
         }
+
         private void Attendance_Load(object sender, EventArgs e)
         {
             // Auto-start scanner initialization when form loads
@@ -65,17 +62,20 @@ namespace ELECTIVE_PAJELA
                 StartContinuousScan();
             }
         }
+
         private void Attendance_FormClosing(object sender, FormClosingEventArgs e)
         {
             _uiClearTimer.Stop();
             _uiClearTimer.Dispose();
             CloseScanner();
         }
+
         private void StartUiClearTimer()
         {
-            _uiClearTimer.Stop();  // Stop it if it's already running to reset the 5s window
-            _uiClearTimer.Start(); // Start the 5s countdown
+            _uiClearTimer.Stop();  // Reset the 5s window
+            _uiClearTimer.Start();
         }
+
         private void UiClearTimer_Tick(object sender, EventArgs e)
         {
             _uiClearTimer.Stop(); // Only run once per trigger
@@ -94,6 +94,7 @@ namespace ELECTIVE_PAJELA
                 oldImg?.Dispose();
             });
         }
+
         private bool OpenScanner()
         {
             if (_deviceOpen) return true;
@@ -144,6 +145,7 @@ namespace ELECTIVE_PAJELA
             _deviceOpen = true;
             return true;
         }
+
         private void CloseScanner()
         {
             _scanInProgress = false;
@@ -166,6 +168,7 @@ namespace ELECTIVE_PAJELA
                 _deviceOpen = false;
             }
         }
+
         private void LoadFingerprintsIntoMemory()
         {
             try
@@ -173,7 +176,11 @@ namespace ELECTIVE_PAJELA
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string query = "SELECT EmployeeID, FingerprintTemplate FROM Employees WHERE FingerprintTemplate IS NOT NULL";
+
+                    // ✅ FIX: Changed column name from 'FingerprintTemplate' to 'picpath'
+                    //         which matches the actual column defined in your database schema.
+                    string query = "SELECT EmployeeID, picpath FROM Employees WHERE picpath IS NOT NULL";
+
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
@@ -183,9 +190,11 @@ namespace ELECTIVE_PAJELA
                         while (reader.Read())
                         {
                             string empId = reader.GetString(0);
-                            byte[] template = (byte[])reader["FingerprintTemplate"];
 
-                            // Add template to ZKTeco memory mapping DB
+                            // ✅ FIX: Read from 'picpath' instead of 'FingerprintTemplate'
+                            byte[] template = (byte[])reader["picpath"];
+
+                            // Add template to ZKTeco in-memory matching DB
                             zkfp2.DBAdd(mDBHandle, fid, template);
                             _fidToEmployeeId[fid] = empId;
                             fid++;
@@ -195,9 +204,11 @@ namespace ELECTIVE_PAJELA
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Failed to load templates into sensor memory:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Failed to load templates into sensor memory:\n" + ex.Message,
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void StartContinuousScan()
         {
             if (!_deviceOpen || _imgBuffer == null) return;
@@ -216,12 +227,10 @@ namespace ELECTIVE_PAJELA
 
                     if (captureResult == zkfp.ZKFP_ERR_OK)
                     {
-                        // We copy the bytes to a local variable to match it
                         byte[] finalTemplate = new byte[templateLength];
                         Array.Copy(templateBuffer, finalTemplate, templateLength);
-
                         args.Result = finalTemplate;
-                        return; // Exit loop, we got a fingerprint
+                        return; // Got a fingerprint, exit loop
                     }
 
                     Thread.Sleep(200); // Polling delay
@@ -232,17 +241,16 @@ namespace ELECTIVE_PAJELA
 
             worker.RunWorkerCompleted += (_, args) =>
             {
-                if (!_scanInProgress) return; // Means we stopped manually
+                if (!_scanInProgress) return;
 
                 if (args.Error == null && args.Result is byte[] templateBuffer)
                 {
                     MatchFingerprint(templateBuffer);
                 }
 
-                // Keep Scanner Alive: Delay briefly then restart scan immediately for next try/pass
+                // Keep scanner alive: restart scan after short delay
                 if (_scanInProgress && _deviceOpen)
                 {
-                    // Delay slightly to prevent instant double-reads
                     System.Threading.Tasks.Task.Delay(1500).ContinueWith(t =>
                     {
                         if (!this.IsDisposed && this.IsHandleCreated)
@@ -255,6 +263,7 @@ namespace ELECTIVE_PAJELA
 
             worker.RunWorkerAsync();
         }
+
         private void MatchFingerprint(byte[] incomingTemplate)
         {
             int matchedFid = 0, score = 0;
@@ -262,14 +271,20 @@ namespace ELECTIVE_PAJELA
 
             if (ret == zkfp.ZKFP_ERR_OK && _fidToEmployeeId.TryGetValue(matchedFid, out string empId))
             {
-                // Identification matched! Process Attendance.
-                ProcessAttendanceLogic(empId); // SUCCESS: Passing both expected parameters(empId);
+                // ✅ FIX: ProcessAttendanceLogic updates UI labels, so it must run on the UI thread
+                this.Invoke((MethodInvoker)delegate
+                {
+                    using (SqlConnection conn = new SqlConnection(connectionString))
+                    {
+                        conn.Open();
+                        ProcessAttendanceLogic(empId, conn);
+                    }
+                });
             }
             else
             {
                 this.Invoke((MethodInvoker)delegate
                 {
-                    // Create a simple custom message box
                     Form autoCloseMsg = new Form()
                     {
                         Text = "Failed",
@@ -288,35 +303,31 @@ namespace ELECTIVE_PAJELA
                         Font = new Font("Segoe UI", 10, FontStyle.Regular)
                     });
 
-                    // Set timer to close it after 3 seconds (3000 ms)
                     System.Windows.Forms.Timer closeTimer = new System.Windows.Forms.Timer() { Interval = 3000 };
                     closeTimer.Tick += (s, args) =>
                     {
                         closeTimer.Stop();
+                        closeTimer.Dispose(); // ✅ FIX: Dispose timer to prevent memory leak
                         autoCloseMsg.Close();
                     };
 
                     closeTimer.Start();
-                    autoCloseMsg.Show(); // .Show() does not freeze the app like .ShowDialog()
+                    autoCloseMsg.Show();
                 });
             }
         }
 
-
         private void EMPLOYEE_BIO_Load(object sender, EventArgs e)
         {
-           
+            // Reserved for designer-generated load logic
         }
-
-
 
         private void ProcessAttendanceLogic(string empID, SqlConnection conn)
         {
-            // Check for today's log - we just use the 'conn' that was passed in!
             string check = @"SELECT TOP 1 LogID, TimeIn, TimeOut 
-          FROM Attendance 
-          WHERE EmployeeID = @id AND LogDate = CAST(GETDATE() AS DATE) 
-          ORDER BY LogID DESC";
+                             FROM Attendance 
+                             WHERE EmployeeID = @id AND LogDate = CAST(GETDATE() AS DATE) 
+                             ORDER BY LogID DESC";
 
             DataTable dt = new DataTable();
 
@@ -333,7 +344,7 @@ namespace ELECTIVE_PAJELA
             {
                 // Action: TIME IN
                 string ins = @"INSERT INTO Attendance (EmployeeID, TimeIn, LogDate) 
-            VALUES (@id, GETDATE(), CAST(GETDATE() AS DATE))";
+                               VALUES (@id, GETDATE(), CAST(GETDATE() AS DATE))";
 
                 using (SqlCommand insCmd = new SqlCommand(ins, conn))
                 {
@@ -341,19 +352,16 @@ namespace ELECTIVE_PAJELA
                     insCmd.ExecuteNonQuery();
                 }
 
-                // Assuming this method is inside your Form class where timeINlbl exists
                 timeINlbl.Text = DateTime.Now.ToString("hh:mm tt");
                 timeOUTlbl.Text = "--:--";
-                lblStatus.Text = "Time In Recorded!";
+                StartUiClearTimer(); // ✅ Start auto-clear after showing time in
                 MessageBox.Show($"Time In Successful for Employee ID: {empID}");
             }
             else
             {
                 // Action: TIME OUT
                 int logId = Convert.ToInt32(dt.Rows[0]["LogID"]);
-                string upd = @"UPDATE Attendance 
-            SET TimeOut = GETDATE() 
-            WHERE LogID = @logid";
+                string upd = @"UPDATE Attendance SET TimeOut = GETDATE() WHERE LogID = @logid";
 
                 using (SqlCommand updCmd = new SqlCommand(upd, conn))
                 {
@@ -363,11 +371,10 @@ namespace ELECTIVE_PAJELA
 
                 timeINlbl.Text = Convert.ToDateTime(dt.Rows[0]["TimeIn"]).ToString("hh:mm tt");
                 timeOUTlbl.Text = DateTime.Now.ToString("hh:mm tt");
-                lblStatus.Text = "Time Out Recorded!";
+                StartUiClearTimer(); // ✅ Start auto-clear after showing time out
                 MessageBox.Show($"Time Out Successful for Employee ID: {empID}");
             }
         }
-
 
         private MemoryStream RawToBitmapStream(byte[] buffer, int width, int height)
         {
@@ -376,7 +383,8 @@ namespace ELECTIVE_PAJELA
             for (int i = 0; i < 256; i++) cp.Entries[i] = Color.FromArgb(i, i, i);
             bmp.Palette = cp;
 
-            BitmapData data = bmp.LockBits(new Rectangle(0, 0, width, height), ImageLockMode.WriteOnly, bmp.PixelFormat);
+            BitmapData data = bmp.LockBits(new Rectangle(0, 0, width, height),
+                ImageLockMode.WriteOnly, bmp.PixelFormat);
             Marshal.Copy(buffer, 0, data.Scan0, width * height);
             bmp.UnlockBits(data);
 
@@ -385,8 +393,7 @@ namespace ELECTIVE_PAJELA
             ms.Position = 0;
             return ms;
         }
-
-        
-        
     }
-}
+
+}  
+

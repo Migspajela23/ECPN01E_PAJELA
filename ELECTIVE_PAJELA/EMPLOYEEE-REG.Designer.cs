@@ -128,7 +128,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(12, 140);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(503, 620);
+            this.groupBox1.Size = new System.Drawing.Size(529, 644);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "INFO";
@@ -422,14 +422,14 @@
             // dgvEmployees
             // 
             this.dgvEmployees.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvEmployees.Location = new System.Drawing.Point(547, 412);
+            this.dgvEmployees.Location = new System.Drawing.Point(553, 410);
             this.dgvEmployees.Name = "dgvEmployees";
-            this.dgvEmployees.Size = new System.Drawing.Size(644, 341);
+            this.dgvEmployees.Size = new System.Drawing.Size(893, 374);
             this.dgvEmployees.TabIndex = 10;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(547, 291);
+            this.button1.Location = new System.Drawing.Point(601, 299);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(121, 49);
             this.button1.TabIndex = 11;
@@ -439,7 +439,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(547, 346);
+            this.button2.Location = new System.Drawing.Point(1230, 346);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(121, 49);
             this.button2.TabIndex = 12;
@@ -449,7 +449,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(688, 347);
+            this.button3.Location = new System.Drawing.Point(1230, 299);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(121, 49);
             this.button3.TabIndex = 13;
@@ -459,7 +459,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(688, 291);
+            this.button4.Location = new System.Drawing.Point(601, 347);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(121, 49);
             this.button4.TabIndex = 14;
@@ -469,7 +469,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(815, 291);
+            this.button5.Location = new System.Drawing.Point(728, 321);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(121, 49);
             this.button5.TabIndex = 15;
@@ -479,7 +479,7 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(815, 346);
+            this.button6.Location = new System.Drawing.Point(1103, 321);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(121, 49);
             this.button6.TabIndex = 16;
@@ -499,7 +499,7 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(491, 234);
+            this.button7.Location = new System.Drawing.Point(683, 220);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(119, 33);
             this.button7.TabIndex = 19;
@@ -521,15 +521,15 @@
             // pictureBox1
             // 
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox1.Location = new System.Drawing.Point(430, 19);
+            this.pictureBox1.Location = new System.Drawing.Point(578, 10);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(231, 200);
+            this.pictureBox1.Size = new System.Drawing.Size(315, 200);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
             // picpath
             // 
-            this.picpath.Location = new System.Drawing.Point(448, 177);
+            this.picpath.Location = new System.Drawing.Point(639, 177);
             this.picpath.Multiline = true;
             this.picpath.Name = "picpath";
             this.picpath.Size = new System.Drawing.Size(196, 20);
@@ -538,9 +538,9 @@
             // pbFingerprint
             // 
             this.pbFingerprint.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pbFingerprint.Location = new System.Drawing.Point(241, 19);
+            this.pbFingerprint.Location = new System.Drawing.Point(298, 10);
             this.pbFingerprint.Name = "pbFingerprint";
-            this.pbFingerprint.Size = new System.Drawing.Size(159, 200);
+            this.pbFingerprint.Size = new System.Drawing.Size(206, 200);
             this.pbFingerprint.TabIndex = 43;
             this.pbFingerprint.TabStop = false;
             // 
@@ -558,24 +558,24 @@
             this.groupBox2.Controls.Add(this.button7);
             this.groupBox2.Location = new System.Drawing.Point(547, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(673, 273);
+            this.groupBox2.Size = new System.Drawing.Size(899, 284);
             this.groupBox2.TabIndex = 44;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "bio";
             // 
             // txtFingerprintData
             // 
-            this.txtFingerprintData.Location = new System.Drawing.Point(257, 224);
+            this.txtFingerprintData.Location = new System.Drawing.Point(306, 216);
             this.txtFingerprintData.Multiline = true;
             this.txtFingerprintData.Name = "txtFingerprintData";
-            this.txtFingerprintData.Size = new System.Drawing.Size(121, 20);
+            this.txtFingerprintData.Size = new System.Drawing.Size(168, 20);
             this.txtFingerprintData.TabIndex = 42;
             // 
             // lblStatus
             // 
             this.lblStatus.AutoSize = true;
             this.lblStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStatus.Location = new System.Drawing.Point(181, 247);
+            this.lblStatus.Location = new System.Drawing.Point(367, 250);
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(61, 18);
             this.lblStatus.TabIndex = 49;
@@ -620,13 +620,11 @@
             this.GENERATEIDBTN.Text = "GENERATE ID";
             this.GENERATEIDBTN.UseVisualStyleBackColor = true;
             this.GENERATEIDBTN.Click += new System.EventHandler(this.GENERATEIDBTN_Click);
-            this.GENERATEIDBTN.Click += GENERATEIDBTN_Click;
-
             // 
             // searchtxtbox
             // 
             this.searchtxtbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.searchtxtbox.Location = new System.Drawing.Point(994, 328);
+            this.searchtxtbox.Location = new System.Drawing.Point(872, 333);
             this.searchtxtbox.Multiline = true;
             this.searchtxtbox.Name = "searchtxtbox";
             this.searchtxtbox.Size = new System.Drawing.Size(214, 28);
@@ -636,7 +634,7 @@
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(1002, 299);
+            this.label18.Location = new System.Drawing.Point(887, 299);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(189, 20);
             this.label18.TabIndex = 42;
@@ -646,7 +644,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1220, 765);
+            this.ClientSize = new System.Drawing.Size(1458, 796);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.searchtxtbox);
             this.Controls.Add(this.groupBox2);

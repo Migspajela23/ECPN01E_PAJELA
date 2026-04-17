@@ -436,11 +436,13 @@ namespace ELECTIVE_PAJELA
             lblStatus.Text = "Status: Fields cleared.";
         }
 
-        private void GENERATEIDBTN_Click(object sender, EventArgs e)
+       
+            private void GENERATEIDBTN_Click(object sender, EventArgs e)
         {
             try
             {
-                using (SqlConnection conn = new SqlConnection(_connectionString))
+                // CHANGE THIS LINE: Use empDB.MyConnection() instead of _connectionString
+                using (SqlConnection conn = new SqlConnection(empDB.MyConnection()))
                 {
                     conn.Open();
 
@@ -457,22 +459,20 @@ namespace ELECTIVE_PAJELA
 
                         if (result == DBNull.Value || result == null)
                         {
-                            // No valid 10001-format IDs found — start fresh
                             txtEmployeeID.Text = "10001";
                         }
                         else
                         {
                             long nextId = Convert.ToInt64(result) + 1;
 
-                            // Safety format: always ensure it stays 5 digits (10001–99999)
                             if (nextId > 99999)
                             {
-                                MessageBox.Show("Warning: Employee ID has exceeded the 5-digit limit (99999).");
+                                MessageBox.Show("Warning: Employee ID has exceeded the 5-digit limit.");
                                 txtEmployeeID.Text = "ERROR";
                                 return;
                             }
 
-                            txtEmployeeID.Text = nextId.ToString("D5"); // Always outputs 5-digit format
+                            txtEmployeeID.Text = nextId.ToString("D5");
                         }
                     }
                 }
