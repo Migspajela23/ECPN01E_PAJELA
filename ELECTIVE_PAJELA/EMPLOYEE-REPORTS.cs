@@ -85,9 +85,9 @@ namespace ELECTIVE_PAJELA
 
             if (ret == zkfp.ZKFP_ERR_OK)
             {
-                // If a finger is scanned, convert to Base64 and search the database automatically
-                string scannedTemplate = zkfp2.BlobToBase64(CapTmp, cbCapTmp);
-                IdentifyEmployee(scannedTemplate);
+                byte[] finalTemplate = new byte[cbCapTmp];
+                Array.Copy(CapTmp, finalTemplate, cbCapTmp);
+                IdentifyEmployee(finalTemplate);
                 MessageBox.Show("Fingerprint scanned and searched.");
             }
             else
@@ -96,31 +96,37 @@ namespace ELECTIVE_PAJELA
             }
         }
 
-        private void IdentifyEmployee(string base64Template)
+        private void IdentifyEmployee(byte[] template)
         {
             try
             {
                 using (SqlConnection cn = new SqlConnection(_connectionString))
                 {
                     cn.Open();
-                    // Query using the FingerprintData column we added earlier
-                    string sql = "SELECT EmployeeID FROM Employees WHERE FingerprintData = @fp";
+
+                    string sql = "SELECT EmployeeID FROM Employees WHERE txtFingerprintData = @fp";
+
                     using (SqlCommand cmd = new SqlCommand(sql, cn))
                     {
-                        cmd.Parameters.AddWithValue("@fp", base64Template);
+                        cmd.Parameters.Add("@fp", SqlDbType.VarBinary).Value = template;
+
                         object result = cmd.ExecuteScalar();
 
                         if (result != null)
                         {
                             txtSearchID.Text = result.ToString();
-                            LoadEmployeeData(result.ToString()); // Automatically filter the grid
+                            LoadEmployeeData(result.ToString());
+                        }
+                        else
+                        {
+                            MessageBox.Show("Employee not found.");
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                // Silent fail or log error
+                MessageBox.Show("Error: " + ex.Message);
             }
         }
         private void LoadEmployeeData(string filterID = "")
@@ -130,12 +136,25 @@ namespace ELECTIVE_PAJELA
                 using (SqlConnection cn = new SqlConnection(_connectionString))
                 {
                     cn.Open();
-                    string sql = "SELECT EmployeeID, Surname, FirstName, Department, Position, DateOfHired FROM Employees";
+
+                    string sql = @"
+            SELECT 
+                e.EmployeeID,
+                e.FirstName + ' ' + e.Surname AS FullName,
+                e.Department,
+                a.LogDate,
+                a.TimeIn,
+                a.TimeOut
+            FROM Attendance a
+            INNER JOIN Employees e ON a.EmployeeID = e.EmployeeID
+            ";
 
                     if (!string.IsNullOrEmpty(filterID))
                     {
-                        sql += " WHERE EmployeeID = @eid";
+                        sql += " WHERE e.EmployeeID = @eid";
                     }
+
+                    sql += " ORDER BY a.LogDate DESC, a.TimeIn DESC";
 
                     using (SqlCommand cm = new SqlCommand(sql, cn))
                     {
@@ -145,6 +164,7 @@ namespace ELECTIVE_PAJELA
                         SqlDataAdapter da = new SqlDataAdapter(cm);
                         DataTable dt = new DataTable();
                         da.Fill(dt);
+
                         dataGridView1.DataSource = dt;
                     }
                 }

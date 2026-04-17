@@ -179,7 +179,7 @@ namespace ELECTIVE_PAJELA
 
                     // ✅ FIX: Changed column name from 'FingerprintTemplate' to 'picpath'
                     //         which matches the actual column defined in your database schema.
-                    string query = "SELECT EmployeeID, picpath FROM Employees WHERE picpath IS NOT NULL";
+                    string query = "SELECT EmployeeID, txtFingerprintData FROM Employees WHERE txtFingerprintData IS NOT NULL";
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     using (SqlDataReader reader = cmd.ExecuteReader())
@@ -191,8 +191,8 @@ namespace ELECTIVE_PAJELA
                         {
                             string empId = reader.GetString(0);
 
-                            // ✅ FIX: Read from 'picpath' instead of 'FingerprintTemplate'
-                            byte[] template = (byte[])reader["picpath"];
+                            // ✅ FIX: Read from txtFingerprintData
+                            byte[] template = (byte[])reader["txtFingerprintData"];
 
                             // Add template to ZKTeco in-memory matching DB
                             zkfp2.DBAdd(mDBHandle, fid, template);
@@ -274,6 +274,10 @@ namespace ELECTIVE_PAJELA
                 // ✅ FIX: ProcessAttendanceLogic updates UI labels, so it must run on the UI thread
                 this.Invoke((MethodInvoker)delegate
                 {
+                    // ✅ Load employee info (separate connection)
+                    LoadEmployeeDetails(empId);
+
+                    // ✅ Attendance (separate connection already inside method)
                     using (SqlConnection conn = new SqlConnection(connectionString))
                     {
                         conn.Open();
@@ -317,6 +321,51 @@ namespace ELECTIVE_PAJELA
             }
         }
 
+        private void LoadEmployeeDetails(string empID)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                string query = @"SELECT EmployeeID, FirstName, MiddleName, Surname, Department, picpath 
+                         FROM Employees 
+                         WHERE EmployeeID = @id";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@id", empID);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            txtEmployeeID.Text = reader["EmployeeID"].ToString();
+
+                            string fullName = reader["FirstName"] + " " +
+                                              reader["MiddleName"] + " " +
+                                              reader["Surname"];
+                            nameTxtBox.Text = fullName;
+
+                            departmentTxtBox.Text = reader["Department"].ToString();
+
+                            if (reader["picpath"] != DBNull.Value)
+                            {
+                                byte[] imgBytes = (byte[])reader["picpath"];
+                                using (MemoryStream ms = new MemoryStream(imgBytes))
+                                {
+                                    employeePicBox.Image = Image.FromStream(ms);
+                                }
+                            }
+                            else
+                            {
+                                employeePicBox.Image = null;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         private void EMPLOYEE_BIO_Load(object sender, EventArgs e)
         {
             // Reserved for designer-generated load logic
@@ -355,7 +404,6 @@ namespace ELECTIVE_PAJELA
                 timeINlbl.Text = DateTime.Now.ToString("hh:mm tt");
                 timeOUTlbl.Text = "--:--";
                 StartUiClearTimer(); // ✅ Start auto-clear after showing time in
-                MessageBox.Show($"Time In Successful for Employee ID: {empID}");
             }
             else
             {
@@ -372,7 +420,6 @@ namespace ELECTIVE_PAJELA
                 timeINlbl.Text = Convert.ToDateTime(dt.Rows[0]["TimeIn"]).ToString("hh:mm tt");
                 timeOUTlbl.Text = DateTime.Now.ToString("hh:mm tt");
                 StartUiClearTimer(); // ✅ Start auto-clear after showing time out
-                MessageBox.Show($"Time Out Successful for Employee ID: {empID}");
             }
         }
 
